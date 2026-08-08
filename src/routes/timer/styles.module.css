@@ -1,0 +1,90 @@
+.sanctuary {
+  --paper: #f5f0e5;
+  --paper-deep: #e7dfce;
+  --ink: #292b26;
+  --ink-soft: #686b60;
+  --clay: #a9654e;
+  --clay-deep: #8f533f;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  overflow: hidden;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background:
+    radial-gradient(circle at 18% 16%, rgb(255 255 255 / 42%), transparent 30rem),
+    linear-gradient(135deg, #eeeadd 0%, #e7e2d5 100%);
+}
+
+.sanctuary::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    repeating-radial-gradient(circle at 30% 40%, transparent 0 2px, rgb(42 44 38 / 2%) 3px 4px),
+    repeating-linear-gradient(97deg, transparent 0 5px, rgb(255 255 255 / 7%) 6px 7px);
+  content: "";
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.wash {
+  position: absolute;
+  z-index: -1;
+  top: -18rem;
+  right: -14rem;
+  width: 38rem;
+  height: 38rem;
+  border: 1px solid rgb(103 107 94 / 10%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 5rem rgb(255 255 255 / 7%),
+    0 0 0 10rem rgb(103 107 94 / 3%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ink-soft);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.header p {
+  margin: 0;
+}
+
+.mark {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--clay);
+  box-shadow: 0 0 0 0.22rem rgb(169 101 78 / 12%);
+}
+
+.timer {
+  display: grid;
+  width: 100%;
+  flex: 1;
+  place-items: center;
+  padding: clamp(2.5rem, 6vw, 5rem) 0;
+}
+
+.footnote {
+  margin: 0;
+  color: rgb(104 107 96 / 70%);
+  font-size: 0.63rem;
+  letter-spacing: 0.19em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+@media (max-width: 420px) {
+  .sanctuary {
+    padding-inline: 1rem;
+  }
+}
