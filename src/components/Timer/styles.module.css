@@ -181,6 +181,23 @@
     inset 0 0 0 0.55rem rgb(255 255 255 / 18%);
 }
 
+.face[data-running="true"] {
+  transform-origin: center;
+  animation: timerBreathing 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes timerBreathing {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.018);
+  }
+}
+
 .face::after {
   position: absolute;
   inset: 0.55rem;
@@ -306,5 +323,11 @@
 @media (max-width: 420px) {
   .face {
     width: min(88vw, 20rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .face[data-running="true"] {
+    animation: none;
   }
 }

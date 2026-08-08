@@ -19,7 +19,11 @@ export function TimerDisplay({
       : TIMER_TEXT.display.idleStatus
 
   return (
-    <div className={styles.face} data-complete={isComplete}>
+    <div
+      className={styles.face}
+      data-complete={isComplete}
+      data-running={isRunning}
+    >
       <div className={styles.timeWrap}>
         <span className={styles.eyebrow}>
           {isComplete
