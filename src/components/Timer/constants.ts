@@ -5,6 +5,7 @@ export const SECONDS_PER_MINUTE = 60;
 
 export const TIMER_TEXT = {
   accessibleName: "Focus timer",
+  meditationTypeGroupLabel: "Choose meditation type",
   presetGroupLabel: "Choose session length",
   minuteUnit: "min",
   custom: {

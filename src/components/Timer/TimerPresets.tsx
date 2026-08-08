@@ -3,12 +3,14 @@ import styles from './styles.module.css'
 import type { TimerPresetList } from './useTimer'
 
 interface TimerPresetsProps {
+  disabled: boolean
   onSelect: (minutes: number) => void
   presets: TimerPresetList
   minutes: number | null
 }
 
 export function TimerPresets({
+  disabled,
   onSelect,
   presets,
   minutes,
@@ -23,6 +25,7 @@ export function TimerPresets({
         <button
           className={styles.preset}
           data-active={minutes === m}
+          disabled={disabled}
           key={m}
           onClick={() => onSelect(m)}
           type="button"

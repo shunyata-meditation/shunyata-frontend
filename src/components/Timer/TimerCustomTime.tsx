@@ -4,12 +4,14 @@ import { TIMER_TEXT } from './constants'
 import styles from './styles.module.css'
 
 interface TimerCustomTimeProps {
+  disabled: boolean
   maxMinutes: number
   minutes: number | null
   setTime: (minutes: number) => void
 }
 
 export function TimerCustomTime({
+  disabled,
   maxMinutes,
   minutes,
   setTime,
@@ -24,9 +26,14 @@ export function TimerCustomTime({
 
   return (
     <div className={styles.customWrap}>
-      <div className={styles.custom} data-active={minutes !== null}>
+      <div
+        className={styles.custom}
+        data-active={minutes !== null}
+        data-disabled={disabled}
+      >
         <label htmlFor={inputId}>{TIMER_TEXT.custom.label}</label>
         <input
+          disabled={disabled}
           id={inputId}
           type="text"
           inputMode="numeric"

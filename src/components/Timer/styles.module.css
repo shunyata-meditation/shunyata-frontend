@@ -6,6 +6,50 @@
   justify-self: center;
 }
 
+.meditationTypes {
+  display: flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 0.3rem;
+  margin-bottom: 0.65rem;
+  padding: 0.28rem;
+  border: 1px solid rgb(54 57 49 / 9%);
+  border-radius: 999px;
+  background: rgb(245 240 229 / 52%);
+}
+
+.meditationType {
+  padding: 0.55rem 0.75rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+.meditationType:hover:not(:disabled) {
+  color: var(--ink);
+}
+
+.meditationType[data-active="true"] {
+  color: var(--ink);
+  background: rgb(255 253 247 / 80%);
+  box-shadow: 0 1px 4px rgb(43 42 36 / 8%);
+}
+
+.meditationType:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .presets {
   display: flex;
   align-items: center;
@@ -34,7 +78,7 @@
     box-shadow 180ms ease;
 }
 
-.preset:hover {
+.preset:hover:not(:disabled) {
   color: var(--ink);
 }
 
@@ -42,6 +86,11 @@
   color: var(--ink);
   background: rgb(255 253 247 / 80%);
   box-shadow: 0 1px 4px rgb(43 42 36 / 8%);
+}
+
+.preset:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .customWrap {
@@ -69,6 +118,10 @@
   box-shadow: 0 1px 6px rgb(43 42 36 / 7%);
 }
 
+.custom[data-disabled="true"] {
+  opacity: 0.55;
+}
+
 .custom label {
   padding-left: 0.85rem;
   color: var(--ink-soft);
@@ -87,6 +140,10 @@
   font-size: 0.72rem;
   font-variant-numeric: tabular-nums;
   appearance: textfield;
+}
+
+.custom input:disabled {
+  cursor: not-allowed;
 }
 
 .customUnit {
