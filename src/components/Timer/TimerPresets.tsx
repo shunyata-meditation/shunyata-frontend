@@ -1,3 +1,5 @@
+import { TIMER_TEXT } from './constants'
+import styles from './styles.module.css'
 import type { TimerPresetList } from './useTimer'
 
 interface TimerPresetsProps {
@@ -13,20 +15,20 @@ export function TimerPresets({
 }: TimerPresetsProps) {
   return (
     <div
-      className="timer__presets"
-      aria-label="Choose session length"
+      className={styles.presets}
+      aria-label={TIMER_TEXT.presetGroupLabel}
       role="group"
     >
       {presets.map((m) => (
         <button
-          className="timer__preset"
+          className={styles.preset}
           data-active={minutes === m}
           key={m}
           onClick={() => onSelect(m)}
           type="button"
           aria-pressed={minutes === m}
         >
-          {m} min
+          {m} {TIMER_TEXT.minuteUnit}
         </button>
       ))}
     </div>

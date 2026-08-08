@@ -1,9 +1,9 @@
-import './styles.css'
-
 import { TimerControls } from './TimerControls'
 import { TimerCustomTime } from './TimerCustomTime'
 import { TimerDisplay } from './TimerDisplay'
 import { TimerPresets } from './TimerPresets'
+import { TIMER_TEXT } from './constants'
+import styles from './styles.module.css'
 import { useTimer } from './useTimer'
 import type { TimerPresetList } from './useTimer'
 
@@ -29,7 +29,7 @@ export function Timer({ presets }: TimerProps) {
   const controlledSelectedMinutes = presetMinutes ?? customMinutes ?? 0
 
   return (
-    <section className="timer" aria-label="Focus timer">
+    <section className={styles.timer} aria-label={TIMER_TEXT.accessibleName}>
       <TimerPresets
         presets={presets}
         minutes={presetMinutes}

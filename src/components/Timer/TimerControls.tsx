@@ -1,3 +1,7 @@
+import { TIMER_TEXT, getResetTimerAriaLabel } from './constants'
+import { TIMER_ICON_PATHS, TIMER_ICON_VIEW_BOX } from './iconPaths'
+import styles from './styles.module.css'
+
 interface TimerControlsProps {
   isComplete: boolean
   isRunning: boolean
@@ -13,26 +17,38 @@ export function TimerControls({
   onToggle,
   selectedMinutes,
 }: TimerControlsProps) {
+  const primaryControlClassName = [
+    styles.control,
+    styles.controlPrimary,
+  ].join(' ')
+  const quietControlClassName = [styles.control, styles.controlQuiet].join(' ')
+
   return (
-    <div className="timer__controls">
+    <div className={styles.controls}>
       <button
-        className="timer__control timer__control--primary"
+        className={primaryControlClassName}
         disabled={isComplete}
         onClick={onToggle}
         type="button"
-        aria-label={isRunning ? 'Pause focus timer' : 'Start focus timer'}
+        aria-label={
+          isRunning
+            ? TIMER_TEXT.controls.pauseAriaLabel
+            : TIMER_TEXT.controls.startAriaLabel
+        }
       >
         {isRunning ? <PauseIcon /> : <PlayIcon />}
-        <span>{isRunning ? 'Pause' : 'Begin'}</span>
+        <span>
+          {isRunning ? TIMER_TEXT.controls.pause : TIMER_TEXT.controls.begin}
+        </span>
       </button>
       <button
-        className="timer__control timer__control--quiet"
+        className={quietControlClassName}
         onClick={onReset}
         type="button"
-        aria-label={`Reset timer to ${selectedMinutes} minutes`}
+        aria-label={getResetTimerAriaLabel(selectedMinutes)}
       >
         <ResetIcon />
-        <span>Reset</span>
+        <span>{TIMER_TEXT.controls.reset}</span>
       </button>
     </div>
   )
@@ -40,31 +56,36 @@ export function TimerControls({
 
 function PlayIcon() {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <path d="m7.25 5.1 7 4.9-7 4.9V5.1Z" fill="currentColor" />
+    <svg
+      className={styles.filledIcon}
+      viewBox={TIMER_ICON_VIEW_BOX}
+      aria-hidden="true"
+    >
+      <path d={TIMER_ICON_PATHS.play} />
     </svg>
   )
 }
 
 function PauseIcon() {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <path d="M6.5 5.25h2.25v9.5H6.5v-9.5Zm4.75 0h2.25v9.5h-2.25v-9.5Z" fill="currentColor" />
+    <svg
+      className={styles.filledIcon}
+      viewBox={TIMER_ICON_VIEW_BOX}
+      aria-hidden="true"
+    >
+      <path d={TIMER_ICON_PATHS.pause} />
     </svg>
   )
 }
 
 function ResetIcon() {
   return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <path
-        d="M5.35 6.4A6 6 0 1 1 4 10.2M5.35 6.4V2.9m0 3.5h3.5"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-      />
+    <svg
+      className={styles.strokedIcon}
+      viewBox={TIMER_ICON_VIEW_BOX}
+      aria-hidden="true"
+    >
+      <path d={TIMER_ICON_PATHS.reset} />
     </svg>
   )
 }

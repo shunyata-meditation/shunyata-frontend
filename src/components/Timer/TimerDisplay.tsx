@@ -1,3 +1,6 @@
+import { TIMER_TEXT } from './constants'
+import styles from './styles.module.css'
+
 interface TimerDisplayProps {
   isComplete: boolean
   isRunning: boolean
@@ -10,21 +13,23 @@ export function TimerDisplay({
   remainingSeconds,
 }: TimerDisplayProps) {
   const statusText = isComplete
-    ? 'The moment is complete.'
+    ? TIMER_TEXT.display.completeStatus
     : isRunning
-      ? 'Stay with this breath.'
-      : 'Begin when you are ready.'
+      ? TIMER_TEXT.display.runningStatus
+      : TIMER_TEXT.display.idleStatus
 
   return (
-    <div className="timer__face" data-complete={isComplete}>
-      <div className="timer__time-wrap">
-        <span className="timer__eyebrow">
-          {isComplete ? 'Complete' : 'Focus'}
+    <div className={styles.face} data-complete={isComplete}>
+      <div className={styles.timeWrap}>
+        <span className={styles.eyebrow}>
+          {isComplete
+            ? TIMER_TEXT.display.completeLabel
+            : TIMER_TEXT.display.focusLabel}
         </span>
-        <time className="timer__time" dateTime={`PT${remainingSeconds}S`}>
+        <time className={styles.time} dateTime={`PT${remainingSeconds}S`}>
           {formatTime(remainingSeconds)}
         </time>
-        <span className="timer__status" aria-live="polite">
+        <span className={styles.status} aria-live="polite">
           {statusText}
         </span>
       </div>

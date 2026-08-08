@@ -1,6 +1,7 @@
-import './styles.css'
-
 import { useId } from 'react'
+
+import { TIMER_TEXT } from './constants'
+import styles from './styles.module.css'
 
 interface TimerCustomTimeProps {
   maxMinutes: number
@@ -22,15 +23,15 @@ export function TimerCustomTime({
   }
 
   return (
-    <div className="timer__custom-wrap">
-      <div className="timer__custom" data-active={minutes !== null}>
-        <label htmlFor={inputId}>Custom</label>
+    <div className={styles.customWrap}>
+      <div className={styles.custom} data-active={minutes !== null}>
+        <label htmlFor={inputId}>{TIMER_TEXT.custom.label}</label>
         <input
           id={inputId}
           type="text"
           inputMode="numeric"
           maxLength={String(maxMinutes).length}
-          placeholder="Minutes"
+          placeholder={TIMER_TEXT.custom.placeholder}
           value={minutesString}
           onChange={(event) => {
             if (event.target.value === '') {
@@ -44,8 +45,8 @@ export function TimerCustomTime({
             }
           }}
         />
-        <span className="timer__custom-unit" aria-hidden="true">
-          min
+        <span className={styles.customUnit} aria-hidden="true">
+          {TIMER_TEXT.minuteUnit}
         </span>
       </div>
     </div>
