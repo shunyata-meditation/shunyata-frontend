@@ -1,3 +1,8 @@
+export const DEFAULT_MINUTES = 25;
+export const MAX_CUSTOM_MINUTES = 99999;
+export const TICK_INTERVAL_MS = 250;
+export const SECONDS_PER_MINUTE = 60;
+
 export const TIMER_TEXT = {
   accessibleName: "Focus timer",
   presetGroupLabel: "Choose session length",

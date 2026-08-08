@@ -1,5 +1,12 @@
 import { useEffect, useReducer, useRef } from "react";
 
+import {
+  DEFAULT_MINUTES,
+  MAX_CUSTOM_MINUTES,
+  SECONDS_PER_MINUTE,
+  TICK_INTERVAL_MS,
+} from "./constants";
+
 type TimerPresetList = readonly [number, ...number[]];
 
 enum TimerStatus {
@@ -24,11 +31,6 @@ type TimerAction =
   | { type: "setCustomTime"; minutes: number }
   | { type: "start" }
   | { type: "tick"; remainingSeconds: number };
-
-const DEFAULT_MINUTES: number = 25;
-const MAX_CUSTOM_MINUTES = 999;
-const TICK_INTERVAL_MS = 250;
-const SECONDS_PER_MINUTE = 60;
 
 function createInitialState(presets: TimerPresetList): TimerState {
   const selectedMinutes = presets.includes(DEFAULT_MINUTES)
