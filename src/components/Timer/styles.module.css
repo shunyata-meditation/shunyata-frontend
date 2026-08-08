@@ -1,9 +1,18 @@
 .timer {
   display: flex;
-  width: min(100%, 26rem);
+  width: min(100%, 29rem);
   flex-direction: column;
   align-items: center;
   justify-self: center;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgb(67 65 56 / 10%);
+  border-radius: 2.5rem;
+  background:
+    linear-gradient(145deg, rgb(255 255 255 / 46%), transparent 58%),
+    rgb(245 240 229 / 68%);
+  box-shadow:
+    0 1.75rem 5rem rgb(57 51 42 / 10%),
+    inset 0 1px 0 rgb(255 255 255 / 60%);
 }
 
 .meditationTypes {
@@ -168,7 +177,7 @@
 .face {
   position: relative;
   display: grid;
-  width: min(80vw, 22rem);
+  width: min(100%, 22rem);
   aspect-ratio: 1;
   place-items: center;
   border: 1px solid rgb(58 59 51 / 9%);
@@ -321,8 +330,19 @@
 }
 
 @media (max-width: 420px) {
+  .timer {
+    padding: 1.25rem 0.75rem;
+    border-radius: 2rem;
+  }
+
+  .meditationType {
+    padding-inline: 0.6rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.035em;
+  }
+
   .face {
-    width: min(88vw, 20rem);
+    width: min(100%, 20rem);
   }
 }
 
