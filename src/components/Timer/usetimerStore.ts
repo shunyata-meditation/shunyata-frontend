@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { MeditationType } from "./TimerMeditationTypes";
 
 import {
   DEFAULT_MINUTES,
@@ -17,6 +18,7 @@ interface TimerState {
   isComplete: boolean;
   isRunning: boolean;
   maxCustomMinutes: number;
+  meditationType: MeditationType | null;
   remainingSeconds: number;
   selectedMinutes: SelectedMinutes;
 }
@@ -26,6 +28,7 @@ interface TimerActions {
   resetTimer: () => void;
   setCustomTime: (minutes: number) => void;
   setPresetTime: (minutes: number) => void;
+  setMeditationType: (meditationType: MeditationType) => void;
   toggleTimer: () => void;
 }
 
@@ -35,6 +38,7 @@ const initialState: TimerState = {
   isComplete: false,
   isRunning: false,
   maxCustomMinutes: MAX_CUSTOM_MINUTES,
+  meditationType: null,
   remainingSeconds: DEFAULT_MINUTES * SECONDS_PER_MINUTE,
   selectedMinutes: { kind: "preset", minutes: DEFAULT_MINUTES },
 };
@@ -92,6 +96,7 @@ export const useTimerStore = create<TimerStore>()(
           const minutes = presets[0];
           setTime("preset", minutes);
         },
+        setMeditationType: (meditationType) => set({ meditationType }),
         resetTimer: () => {
           stopTicking();
           set((state) => ({

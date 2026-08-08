@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { Timer } from '#/components/Timer'
@@ -11,10 +10,6 @@ export const Route = createFileRoute('/timer')({
 })
 
 function RouteComponent() {
-  const [selectedMeditationTypeId, setSelectedMeditationTypeId] = useState<string>(
-    MEDITATION_TYPES[0].id,
-  )
-
   return (
     <main className={styles.sanctuary}>
       <div className={styles.wash} aria-hidden="true" />
@@ -26,9 +21,7 @@ function RouteComponent() {
       <div className={styles.timer}>
         <Timer
           meditationTypes={MEDITATION_TYPES}
-          onMeditationTypeChange={setSelectedMeditationTypeId}
           presets={TIMER_PRESETS}
-          selectedMeditationTypeId={selectedMeditationTypeId}
         />
       </div>
 

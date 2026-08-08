@@ -14,7 +14,7 @@ export type MeditationTypeList = readonly [
 interface TimerMeditationTypesProps {
   disabled: boolean
   meditationTypes: MeditationTypeList
-  onSelect: (id: string) => void
+  onSelect: (meditationType: MeditationType) => void
   selectedId: string
 }
 
@@ -37,7 +37,7 @@ export function TimerMeditationTypes({
           data-active={selectedId === id}
           disabled={disabled}
           key={id}
-          onClick={() => onSelect(id)}
+          onClick={() => onSelect({ id, label })}
           type="button"
         >
           {label}

@@ -11,26 +11,24 @@ import type { MeditationTypeList } from './TimerMeditationTypes'
 
 export interface TimerProps {
   meditationTypes: MeditationTypeList
-  onMeditationTypeChange: (id: string) => void
   presets: TimerPresetList
-  selectedMeditationTypeId: string
 }
 
 export function Timer({
   meditationTypes,
-  onMeditationTypeChange,
   presets,
-  selectedMeditationTypeId,
 }: TimerProps) {
   const {
     isComplete,
     isRunning,
     maxCustomMinutes,
     remainingSeconds,
+    selectedMinutes,
+    meditationType,
+    setMeditationType,
     setCustomTime,
     setPresetTime,
     resetTimer,
-    selectedMinutes,
     toggleTimer,
   } = useTimer(presets)
 
@@ -43,8 +41,8 @@ export function Timer({
       <TimerMeditationTypes
         disabled={isRunning}
         meditationTypes={meditationTypes}
-        onSelect={onMeditationTypeChange}
-        selectedId={selectedMeditationTypeId}
+        onSelect={setMeditationType}
+        selectedId={meditationType?.id ?? meditationTypes[0].id}
       />
       <TimerPresets
         disabled={isRunning}
