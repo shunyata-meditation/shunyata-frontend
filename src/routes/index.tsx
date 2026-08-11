@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 
+import { PieChart } from '#/components/Stats'
+import type { MeditationHistoryEntry } from '#/components/Stats'
 import { Timer } from '#/components/Timer'
 import type { MeditationTypeList } from '#/components/Timer'
 
@@ -10,14 +11,24 @@ const MEDITATION_TYPES = [
   { id: 'breathing', label: 'Breathing' },
   { id: 'body-scan', label: 'Body Scan' },
 ] as const satisfies MeditationTypeList
+const MEDITATION_HISTORY = [
+  {
+    meditationType: MEDITATION_TYPES[0],
+    durationMinutes: 70,
+  },
+  {
+    meditationType: MEDITATION_TYPES[1],
+    durationMinutes: 10,
+  },
+  {
+    meditationType: MEDITATION_TYPES[2],
+    durationMinutes: 20,
+  },
+] as const satisfies readonly MeditationHistoryEntry[]
 
 export const Route = createFileRoute('/')({ component: Home })
 
 function Home() {
-  const [selectedMeditationTypeId, setSelectedMeditationTypeId] = useState<string>(
-    MEDITATION_TYPES[0].id,
-  )
-
   return (
     <main className="sanctuary">
       <div className="sanctuary__wash" aria-hidden="true" />
@@ -35,12 +46,13 @@ function Home() {
           </p>
         </div>
 
-        <Timer
-          meditationTypes={MEDITATION_TYPES}
-          onMeditationTypeChange={setSelectedMeditationTypeId}
-          presets={TIMER_PRESETS}
-          selectedMeditationTypeId={selectedMeditationTypeId}
-        />
+        <div className="sanctuary__practice">
+          <Timer
+            meditationTypes={MEDITATION_TYPES}
+            presets={TIMER_PRESETS}
+          />
+          <PieChart history={MEDITATION_HISTORY} />
+        </div>
       </div>
 
       <p className="sanctuary__footnote">Breathe in · Breathe out</p>
