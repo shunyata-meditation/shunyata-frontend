@@ -180,30 +180,40 @@
   width: min(100%, 22rem);
   aspect-ratio: 1;
   place-items: center;
-  border: 1px solid rgb(58 59 51 / 9%);
   border-radius: 50%;
+}
+
+.face::before {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(58 59 51 / 9%);
+  border-radius: inherit;
   background:
     radial-gradient(circle at 38% 28%, rgb(255 255 255 / 85%), transparent 35%),
     var(--paper);
   box-shadow:
     0 1.5rem 4rem rgb(57 51 42 / 10%),
     inset 0 0 0 0.55rem rgb(255 255 255 / 18%);
+  content: "";
+  pointer-events: none;
+  transform: translateZ(0) scale(1);
+  transform-origin: center;
+  backface-visibility: hidden;
 }
 
-.face[data-running="true"] {
-  transform-origin: center;
-  animation: timerBreathing 8s ease-in-out infinite;
+.face[data-running="true"]::before {
+  animation: timerBreathing 8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   will-change: transform;
 }
 
 @keyframes timerBreathing {
   0%,
   100% {
-    transform: scale(1);
+    transform: translateZ(0) scale(1);
   }
 
   50% {
-    transform: scale(1.018);
+    transform: translateZ(0) scale(1.018);
   }
 }
 
@@ -238,7 +248,11 @@
 
 .time {
   color: var(--ink);
-  font-family: Iowan Old Style, Baskerville, "Times New Roman", serif;
+  font-family:
+    Iowan Old Style,
+    Baskerville,
+    "Times New Roman",
+    serif;
   font-size: clamp(3.8rem, 14vw, 5.5rem);
   font-variant-numeric: tabular-nums;
   font-weight: 400;
@@ -250,7 +264,11 @@
   min-height: 1.25rem;
   margin-top: 0.8rem;
   color: var(--ink-soft);
-  font-family: Iowan Old Style, Baskerville, "Times New Roman", serif;
+  font-family:
+    Iowan Old Style,
+    Baskerville,
+    "Times New Roman",
+    serif;
   font-size: 0.86rem;
   font-style: italic;
 }
@@ -347,7 +365,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .face[data-running="true"] {
+  .face[data-running="true"]::before {
     animation: none;
   }
 }
