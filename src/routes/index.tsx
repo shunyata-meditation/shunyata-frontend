@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { PieChart } from '#/components/Stats'
-import type { MeditationHistoryEntry } from '#/components/Stats'
 import { Timer } from '#/components/Timer'
 import type { MeditationTypeList } from '#/components/Timer'
+import type { MeditationSession } from '#/domain/models'
 
 const TIMER_PRESETS = [5, 15, 20] as const
 const MEDITATION_TYPES = [
@@ -13,18 +13,30 @@ const MEDITATION_TYPES = [
 ] as const satisfies MeditationTypeList
 const MEDITATION_HISTORY = [
   {
-    meditationType: MEDITATION_TYPES[0],
-    durationMinutes: 70,
+    meditationType: MEDITATION_TYPES[0].id,
+    startTime: new Date('2026-08-09T08:00:00'),
+    endTime: new Date('2026-08-09T09:10:00'),
+    duration: 70,
+    completed: true,
+    notes: '',
   },
   {
-    meditationType: MEDITATION_TYPES[1],
-    durationMinutes: 10,
+    meditationType: MEDITATION_TYPES[1].id,
+    startTime: new Date('2026-08-10T08:00:00'),
+    endTime: new Date('2026-08-10T08:10:00'),
+    duration: 10,
+    completed: true,
+    notes: '',
   },
   {
-    meditationType: MEDITATION_TYPES[2],
-    durationMinutes: 20,
+    meditationType: MEDITATION_TYPES[2].id,
+    startTime: new Date('2026-08-11T08:00:00'),
+    endTime: new Date('2026-08-11T08:20:00'),
+    duration: 20,
+    completed: true,
+    notes: '',
   },
-] as const satisfies readonly MeditationHistoryEntry[]
+] as const satisfies readonly MeditationSession[]
 
 export const Route = createFileRoute('/')({ component: Home })
 

@@ -1,13 +1,7 @@
-export interface MeditationHistoryEntry {
-  meditationType: {
-    id: string;
-    label: string;
-  };
-  durationMinutes: number;
-}
+import type { MeditationSession } from "#/domain/models";
 
 export interface PieChartProps {
-  history: readonly MeditationHistoryEntry[];
+  history: readonly MeditationSession[];
   title?: string;
 }
 

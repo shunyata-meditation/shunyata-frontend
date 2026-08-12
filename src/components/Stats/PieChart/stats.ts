@@ -1,5 +1,13 @@
 import { FALLBACK_COLORS, KNOWN_TYPE_ORDER, TYPE_COLORS } from "./constants";
-import type { MeditationHistoryEntry, MeditationTypeStat } from "./types";
+import type { MeditationSession } from "#/domain/models";
+import type { MeditationTypeStat } from "./types";
+
+function formatMeditationType(type: string) {
+  return type
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
 
 function getTypeColor(id: string) {
   if (TYPE_COLORS[id]) return TYPE_COLORS[id];
@@ -32,23 +40,23 @@ function roundPercentages(values: readonly number[]) {
   return rounded;
 }
 
-export function getMeditationStats(history: readonly MeditationHistoryEntry[]) {
+export function getMeditationStats(history: readonly MeditationSession[]) {
   const grouped = new Map<
     string,
     Omit<MeditationTypeStat, "color" | "percentage">
   >();
 
-  for (const entry of history) {
-    if (!Number.isFinite(entry.durationMinutes) || entry.durationMinutes <= 0) {
+  for (const session of history) {
+    if (!Number.isFinite(session.duration) || session.duration <= 0) {
       continue;
     }
 
-    const current = grouped.get(entry.meditationType.id);
+    const current = grouped.get(session.meditationType);
 
-    grouped.set(entry.meditationType.id, {
-      id: entry.meditationType.id,
-      label: current?.label ?? entry.meditationType.label,
-      minutes: (current?.minutes ?? 0) + entry.durationMinutes,
+    grouped.set(session.meditationType, {
+      id: session.meditationType,
+      label: current?.label ?? formatMeditationType(session.meditationType),
+      minutes: (current?.minutes ?? 0) + session.duration,
     });
   }
 

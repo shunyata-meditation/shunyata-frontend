@@ -8,7 +8,7 @@ import { formatMinutes, getMeditationStats } from "./stats";
 import styles from "./styles.module.css";
 import type { PieChartProps } from "./types";
 
-export type { MeditationHistoryEntry, PieChartProps } from "./types";
+export type { PieChartProps } from "./types";
 
 export function PieChart({
   history,
