@@ -4,13 +4,13 @@ import type BaseRepository from '#/repository/BaseRepository'
 import { TimerControls } from './TimerControls'
 import { TimerCustomTime } from './TimerCustomTime'
 import { TimerDisplay } from './TimerDisplay'
-import { TimerMeditationTypes } from './TimerMeditationTypes'
+import { TimerMeditationTypes } from './types'
 import { TimerPresets } from './TimerPresets'
 import { TIMER_TEXT } from './constants'
 import styles from './styles.module.css'
 import { useTimer } from './useTimer'
 import type { TimerPresetList } from './useTimer'
-import type { MeditationTypeList } from './TimerMeditationTypes'
+import type { MeditationTypeList } from './types'
 
 export interface TimerProps {
   meditationTypes: MeditationTypeList

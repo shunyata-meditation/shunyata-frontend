@@ -4,7 +4,7 @@ import { useHydrated } from "@tanstack/react-router";
 import type { MeditationSession } from "#/domain/models";
 import type BaseRepository from "#/repository/BaseRepository";
 
-import type { MeditationTypeList } from "./TimerMeditationTypes";
+import type { MeditationTypeList } from "./types";
 import { useTimerStore } from "./usetimerStore";
 import type { TimerPresetList } from "./usetimerStore";
 

@@ -1,3 +1,3 @@
 export { Timer } from "./Timer";
 export type { TimerProps } from "./Timer";
-export type { MeditationTypeList } from "./TimerMeditationTypes";
+export type { MeditationTypeList } from "./types";
