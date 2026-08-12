@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const meditationSessionSchema = z
   .object({
+    id: z.string().trim().min(1),
     meditationType: z.string().trim().min(1),
     startTime: z.date(),
     endTime: z.date(),
