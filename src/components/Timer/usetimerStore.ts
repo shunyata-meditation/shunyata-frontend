@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { MeditationType } from "./TimerMeditationTypes";
+import type { MeditationType } from "#/domain/models";
 
 import {
   DEFAULT_MINUTES,
@@ -21,6 +21,7 @@ interface TimerState {
   meditationType: MeditationType | null;
   remainingSeconds: number;
   selectedMinutes: SelectedMinutes;
+  startedAt: string | null;
 }
 
 interface TimerActions {
@@ -41,6 +42,7 @@ const initialState: TimerState = {
   meditationType: null,
   remainingSeconds: DEFAULT_MINUTES * SECONDS_PER_MINUTE,
   selectedMinutes: { kind: "preset", minutes: DEFAULT_MINUTES },
+  startedAt: null,
 };
 
 function clampMinutes(minutes: number) {
@@ -71,6 +73,7 @@ export const useTimerStore = create<TimerStore>()(
           isRunning: false,
           remainingSeconds: clampedMinutes * SECONDS_PER_MINUTE,
           selectedMinutes: { kind, minutes: clampedMinutes },
+          startedAt: null,
         });
       };
 
@@ -104,12 +107,13 @@ export const useTimerStore = create<TimerStore>()(
             isRunning: false,
             remainingSeconds:
               state.selectedMinutes.minutes * SECONDS_PER_MINUTE,
+            startedAt: null,
           }));
         },
         setCustomTime: (minutes) => setTime("custom", minutes),
         setPresetTime: (minutes) => setTime("preset", minutes),
         toggleTimer: () => {
-          const { isComplete, isRunning, remainingSeconds } = get();
+          const { isComplete, isRunning, remainingSeconds, startedAt } = get();
           if (isComplete) return;
 
           if (isRunning) {
@@ -127,7 +131,10 @@ export const useTimerStore = create<TimerStore>()(
           }
 
           deadline = Date.now() + remainingSeconds * 1000;
-          set({ isRunning: true });
+          set({
+            isRunning: true,
+            startedAt: startedAt ?? new Date().toISOString(),
+          });
           interval = setInterval(tick, TICK_INTERVAL_MS);
           tick();
         },

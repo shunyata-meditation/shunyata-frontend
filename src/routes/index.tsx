@@ -1,18 +1,21 @@
+import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 
 import { PieChart } from '#/components/Stats'
 import { Timer } from '#/components/Timer'
 import type { MeditationTypeList } from '#/components/Timer'
 import type { MeditationSession } from '#/domain/models'
+import FakeMeditationSessionRepository from '#/repository/FakeMeditationSessionRepository'
 
 const TIMER_PRESETS = [5, 15, 20] as const
 const MEDITATION_TYPES = [
-  { id: 'mindfulness', label: 'Mindfulness' },
-  { id: 'breathing', label: 'Breathing' },
-  { id: 'body-scan', label: 'Body Scan' },
+  { id: 'mindfulness', name: 'Mindfulness' },
+  { id: 'breathing', name: 'Breathing' },
+  { id: 'body-scan', name: 'Body Scan' },
 ] as const satisfies MeditationTypeList
 const MEDITATION_HISTORY = [
   {
+    id: 'session-1',
     meditationType: MEDITATION_TYPES[0].id,
     startTime: new Date('2026-08-09T08:00:00'),
     endTime: new Date('2026-08-09T09:10:00'),
@@ -21,6 +24,7 @@ const MEDITATION_HISTORY = [
     notes: '',
   },
   {
+    id: 'session-2',
     meditationType: MEDITATION_TYPES[1].id,
     startTime: new Date('2026-08-10T08:00:00'),
     endTime: new Date('2026-08-10T08:10:00'),
@@ -29,6 +33,7 @@ const MEDITATION_HISTORY = [
     notes: '',
   },
   {
+    id: 'session-3',
     meditationType: MEDITATION_TYPES[2].id,
     startTime: new Date('2026-08-11T08:00:00'),
     endTime: new Date('2026-08-11T08:20:00'),
@@ -41,6 +46,10 @@ const MEDITATION_HISTORY = [
 export const Route = createFileRoute('/')({ component: Home })
 
 function Home() {
+  const [repository] = useState(
+    () => new FakeMeditationSessionRepository(MEDITATION_HISTORY),
+  )
+
   return (
     <main className="sanctuary">
       <div className="sanctuary__wash" aria-hidden="true" />
@@ -62,6 +71,7 @@ function Home() {
           <Timer
             meditationTypes={MEDITATION_TYPES}
             presets={TIMER_PRESETS}
+            repository={repository}
           />
           <PieChart history={MEDITATION_HISTORY} />
         </div>

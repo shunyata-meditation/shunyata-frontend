@@ -32,7 +32,7 @@ export default class FakeMeditationSessionRepository implements BaseRepository<M
     return session ? cloneSession(session) : null;
   }
 
-  async create(item: MeditationSession): Promise<MeditationSession> {
+  async add(item: MeditationSession): Promise<MeditationSession> {
     const session = meditationSessionSchema.parse(item);
 
     if (this.sessions.has(session.id)) {

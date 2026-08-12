@@ -1,3 +1,6 @@
+import type { MeditationSession } from '#/domain/models'
+import type BaseRepository from '#/repository/BaseRepository'
+
 import { TimerControls } from './TimerControls'
 import { TimerCustomTime } from './TimerCustomTime'
 import { TimerDisplay } from './TimerDisplay'
@@ -12,11 +15,13 @@ import type { MeditationTypeList } from './TimerMeditationTypes'
 export interface TimerProps {
   meditationTypes: MeditationTypeList
   presets: TimerPresetList
+  repository: BaseRepository<MeditationSession>
 }
 
 export function Timer({
   meditationTypes,
   presets,
+  repository,
 }: TimerProps) {
   const {
     isComplete,
@@ -30,7 +35,7 @@ export function Timer({
     setPresetTime,
     resetTimer,
     toggleTimer,
-  } = useTimer(presets)
+  } = useTimer(presets, meditationTypes, repository)
 
   const presetMinutes = selectedMinutes.kind === 'preset' ? selectedMinutes.minutes : null
   const customMinutes = selectedMinutes.kind === 'custom' ? selectedMinutes.minutes : null

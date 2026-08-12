@@ -1,10 +1,7 @@
+import type { MeditationType } from '#/domain/models'
+
 import { TIMER_TEXT } from './constants'
 import styles from './styles.module.css'
-
-export interface MeditationType {
-  id: string
-  label: string
-}
 
 export type MeditationTypeList = readonly [
   MeditationType,
@@ -30,17 +27,17 @@ export function TimerMeditationTypes({
       aria-label={TIMER_TEXT.meditationTypeGroupLabel}
       role="group"
     >
-      {meditationTypes.map(({ id, label }) => (
+      {meditationTypes.map(({ id, name }) => (
         <button
           aria-pressed={selectedId === id}
           className={styles.meditationType}
           data-active={selectedId === id}
           disabled={disabled}
           key={id}
-          onClick={() => onSelect({ id, label })}
+          onClick={() => onSelect({ id, name })}
           type="button"
         >
-          {label}
+          {name}
         </button>
       ))}
     </div>
